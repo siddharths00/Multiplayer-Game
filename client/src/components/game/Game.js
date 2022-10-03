@@ -3,7 +3,8 @@ import queryString from 'query-string';
 import io from 'socket.io-client';
 import { useSearchParams } from 'react-router-dom';
 // import checkMousePosition from '../../controllers/Mouse';
-// import './chat.css';
+import './chat.css';
+import getCoordinates from '../../controllers/Socket'
 // import InfoBar from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\infoBar\\InfoBar.js';
 // import Input from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\Input\\Input.js';
 // import Messages from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\Messages\\Messages.js';
@@ -77,11 +78,11 @@ const Game = () => {
 
     return (
         <div className="outerContainer">
-            {/* <div className="container">
-                <InfoBar propRoom={room}/>
-                <Messages messages = {messages} name={name}/>
-                <Input message = {message} setMessage={setMessage} sendMessage={sendMessage} />
-            </div> */}
+             <div className="container">
+                {/* <InfoBar propRoom={room}/> */}
+                {/* <Messages messages = {messages} name={name}/> */}
+                {/* <Input message = {message} setMessage={setMessage} sendMessage={sendMessage} /> */}
+            </div> 
         </div>
     );
 }

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import Chat from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\chat\\Chat.js';
 import { useState } from 'react';
 import io from 'socket.io-client';
-import useMousePosition from '../../controllers/Mouse';
+// import useMousePosition from '../../controllers/Mouse';
 import { Link } from 'react-router-dom';
 import './join.css';
 const endpoint = 'http://localhost:5000';
