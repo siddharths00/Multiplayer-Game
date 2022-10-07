@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import './chat.css';
 import getCoordinates from '../../controllers/Socket'
 import Move from '../move/Move';
-const { addUser, removeUser, getUser, getUsersInRoom, users } = require('../../users');
+// const { addUser, removeUser, getUser, getUsersInRoom } = require('../../../../server/users');
 // import InfoBar from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\infoBar\\InfoBar.js';
 // import Input from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\Input\\Input.js';
 // import Messages from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\Messages\\Messages.js';
@@ -27,8 +27,6 @@ const Game = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [data, setData] = useState([]);
-    const [onlyOne, setonlyOne] = useState(true);
-    const [points, setPoints] = useState([]);
 
     const endpoint = 'http://localhost:5000';
     const [searchParams] = useSearchParams();
@@ -58,36 +56,9 @@ const Game = () => {
         setName(name);
         setRoom(room);
         console.log("===", name, room);
-        socket.emit('getUsers', { room}, (val) => {
-          // console.log("################# ",getUsersInRoom(room), users);
-          // console.log(val, "YULUUUUUUUUUUUUUUUUU ", val.length, getUsersInRoom(room));
-          if(val.length==1) {
-            console.log("this is second")
-            setonlyOne(false);
-            setX(x2);
-            setY(y2);
-            setX2(0);
-            setY2(0);
-          }
-          else{
-            console.log("this is first");
-          }
+        socket.emit('join', { name, room}, () => {
+
         });
-        socket.emit('join', { name, room}, (val) => {
-          // console.log("################# ",getUsersInRoom(room), users);
-          console.log(val, "YULUUUUUUUUUUUUUUUUU ", val.length, getUsersInRoom(room));
-          
-          if(val.length==2) {
-            socket.on('totalPlayers', (data) => {
-              setPoints(data.points);
-              console.log(data, "cheking ");
-                // setData(data);
-                // setX2(data.x);
-                // setY2(data.y);
-            })
-          }
-        });
-        
         // console.log("########",users = io.sockets.adapter.rooms.get(room));
         // The above is the same as writing socket.emit('join', { name:name, room:room});
 
@@ -97,30 +68,6 @@ const Game = () => {
             socket.off(); 
         }
     }, [endpoint]);
-
-    // useEffect(()=>{
-    //   socket.emit('getUsers', { room}, (val) => {
-    //     // console.log("################# ",getUsersInRoom(room), users);
-    //     // console.log(val, "YULUUUUUUUUUUUUUUUUU ", val.length, getUsersInRoom(room));
-    //     if(val.length==2) {
-    //       setonlyOne(false);
-    //     }
-    //   });
-    // })
-    useEffect(() => {
-      socket.on('totalPlayers', (data) => {
-        if(data.players.length==2) {
-          setonlyOne(false);
-          setPoints(data.points);
-          // console.log(data);
-        }
-        else setonlyOne(true)
-        console.log(data, "cheking ", data.players.length);
-          // setData(data);
-          // setX2(data.x);
-          // setY2(data.y);
-      })
-  },[onlyOne]);
 
     useEffect(
         () => {
@@ -145,25 +92,25 @@ const Game = () => {
             let b=y;
             if (e.keyCode == up){
               setX((top) => (top - pixelDistance >= 0 ? top - pixelDistance : 0));
-              // a=(x - pixelDistance >= 0 ? x - pixelDistance : 0);
+              a=(x - pixelDistance >= 0 ? x - pixelDistance : 0);
             }
             else if (e.keyCode == down){
-              setX((top) => top + pixelDistance <= 610 ? top + pixelDistance : 610);
-              // a=x + pixelDistance <= 610 ? x + pixelDistance : 610
+              setX((top) => top + pixelDistance <= 280 ? top + pixelDistance : 280);
+              a=x + pixelDistance <= 280 ? x + pixelDistance : 280
             }
             else if (e.keyCode == left){
               setY((left) => left - pixelDistance >= 0 ? left - pixelDistance : 0);
-              // b=y - pixelDistance >= 0 ? y - pixelDistance : 0
+              b=y - pixelDistance >= 0 ? y - pixelDistance : 0
             }
             else if (e.keyCode == right){
-              setY((left) => left + pixelDistance <= 1360 ? left + pixelDistance : 1360);
-              // b=y + pixelDistance <= 1360 ? y + pixelDistance : 1360
+              setY((left) => left + pixelDistance <= 280 ? left + pixelDistance : 280);
+              b=y + pixelDistance <= 280 ? y + pixelDistance : 280
             }
             else return;
             socket.emit('sendCoordinates', { x, y}, () => {
 
             });
-            // console.log(x, y);
+            console.log(x, y);
             
           }
           // window.addEventListener('mousemove', update)
@@ -186,20 +133,8 @@ const Game = () => {
         })
     },[data]);
 
-    // let points = [];
-    // function getRandomInt(max) {
-    //   return Math.floor(Math.random() * max);
-    // }    
-    // for(let i=0; i<9; i++){
-    //   let a=getRandomInt(610);
-    //   let b=getRandomInt(1360);
-    //   points.append([a,b]);
-    // }
     return (<>
-    {/* {onlyOne ? <h1>Let another player join</h1> : <Move top={x} left={y} top2={x2} left2={y2} />} */}
-    <Move top={x} left={y} top2={x2} left2={y2} onlyOne={onlyOne} points={points} room={room} socket={socket} />
-    {/* {onlyOne ? <h1>Let another player join</h1> : } */}
-                  
+                  <Move top={x} left={y} top2={x2} left2={y2} />
         </>
     );
 }

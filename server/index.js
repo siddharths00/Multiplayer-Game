@@ -3,7 +3,8 @@ const http = require('http');
 const cors = require('cors');
 
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+// const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+const { addUser, removeUser, getUser, getUsersInRoom, getRandomInt } = require('../client/src/users');
 // const router = require('./router');
 
 const PORT = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ io.on('connection', (socket) => {
         if(error) return callback(error);
 
         console.log(name, room, " joined");
+        // console.log(user);
         // const user2 = getUser(socket.id);
         // console.log(user2.name, user2.room, " joined");
 
@@ -31,21 +33,53 @@ io.on('connection', (socket) => {
         socket.join(user.room);
 
         // io.to(user.room).emit('roomData', {room: user.room, users:getUsersInRoom(user.room)});
-
-        callback(); 
+        
+        let points=[]
+        if(getUsersInRoom(user.room).length==2) {
+            
+            for(let i=0; i<9; i++){
+            let a=getRandomInt(610);
+            let b=getRandomInt(1360);
+            points.push([a,b,true]);
+            }
+            io.to(user.room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points });
+        }
+        else {
+            socket.broadcast.to(user.room).emit('totalPlayers', {players:getUsersInRoom(user.room) });
+        }
+        callback(getUsersInRoom(room));
+        // callback(); 
     });
 
-    socket.on('sendCoordinates', ({a, b}, callback) => {
+    socket.on('getUsers', ({room}, callback) => {
+        console.log("get users");
+        callback(getUsersInRoom(room));
+        // callback(); 
+    });
+    socket.on('sendCoordinates', ({x, y}, callback) => {
         const user = getUser(socket.id);
-        console.log(user, a, b);
+        // console.log(user, a, b);
         if(user)
         {
 
-            socket.broadcast.to(user.room).emit('coordinates', { user: user.name, x: a, y:b });
+            socket.broadcast.to(user.room).emit('coordinates', { user: user.name, x: x, y:y });
             // io.to(user.room).emit('roomData', { room: user.room, users:getUsersInRoom(user.room) });
         }
         callback();
     });
+
+    socket.on('updatedFruits', ({fruits, room}, callback) => {
+        // const user = getUser(socket.id);
+        // console.log(user, a, b);
+        // if(user)
+        // {
+            console.log("someone ate a fruit")
+            socket.broadcast.to(room).emit('fruits', { fruits });
+            // io.to(user.room).emit('roomData', { room: user.room, users:getUsersInRoom(user.room) });
+        // }
+        callback();
+    });
+
 
     socket.on('disconnect', ()=>{
         const user = removeUser(socket.id);

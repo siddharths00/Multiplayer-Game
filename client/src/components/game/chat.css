@@ -32,3 +32,58 @@
       width: 60%;
     }
   }
+
+  
+  .App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .move-container {
+    width: 1400px;
+    height: 650px;
+    border: solid black 1px;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  
+  .move-div1 {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    position: absolute;
+  }
+
+  .move-div2 {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+  }
+  
+  .point {
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+  }
+  .controller {
+    padding: 10px;
+  }
+  
+  .controller button {
+    margin: 5px;
+  }
+
+  .leftPoint {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .rightpoint{
+    width: 20px;
+    height: 20px;
+  }
+  
