@@ -33,15 +33,17 @@
     }
   }
 
-  
+  body {
+    overflow: hidden;
+  }
   .App {
     font-family: sans-serif;
     text-align: center;
   }
   
   .move-container {
-    width: 1400px;
-    height: 650px;
+    width: 900px;
+    height: 425px;
     border: solid black 1px;
     position: relative;
     margin: 0 auto;
@@ -63,8 +65,8 @@
   }
   
   .point {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     background-color: green;
     border-radius: 50%;
     position: absolute;

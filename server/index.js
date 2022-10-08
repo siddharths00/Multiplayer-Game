@@ -4,7 +4,7 @@ const cors = require('cors');
 
 
 // const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
-const { addUser, removeUser, getUser, getUsersInRoom, getRandomInt } = require('../client/src/users');
+const { addUser, removeUser, getUser, getUsersInRoom, getRandomInt, users } = require('../client/src/users');
 // const router = require('./router');
 
 const PORT = process.env.PORT || 5000;
@@ -17,12 +17,12 @@ const io = socketio(server, {cors: {origin: "http://localhost:3000"}});
 // app.use(router);
 app.use(cors());
 io.on('connection', (socket) => {
-    socket.on('join', ({name, room}, callback) => {
+    socket.on('join', ({name, room}, callback) => { 
 
         const { error, user } = addUser({ id: socket.id, name, room});
         if(error) return callback(error);
 
-        console.log(name, room, " joined");
+        console.log(user.name, user.room, " joined");
         // console.log(user);
         // const user2 = getUser(socket.id);
         // console.log(user2.name, user2.room, " joined");
@@ -38,14 +38,14 @@ io.on('connection', (socket) => {
         if(getUsersInRoom(user.room).length==2) {
             
             for(let i=0; i<9; i++){
-            let a=getRandomInt(610);
-            let b=getRandomInt(1360);
+            let a=getRandomInt(410);
+            let b=getRandomInt(760);
             points.push([a,b,true]);
             }
-            io.to(user.room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points });
+            io.to(user.room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points, left:false });
         }
         else {
-            socket.broadcast.to(user.room).emit('totalPlayers', {players:getUsersInRoom(user.room) });
+            socket.broadcast.to(user.room).emit('totalPlayers', {players:getUsersInRoom(user.room), left:false });
         }
         callback(getUsersInRoom(room));
         // callback(); 
@@ -56,15 +56,10 @@ io.on('connection', (socket) => {
         callback(getUsersInRoom(room));
         // callback(); 
     });
-    socket.on('sendCoordinates', ({x, y}, callback) => {
+    socket.on('sendCoordinates', ({x, y, points, myPoints}, callback) => {
         const user = getUser(socket.id);
-        // console.log(user, a, b);
-        if(user)
-        {
-
-            socket.broadcast.to(user.room).emit('coordinates', { user: user.name, x: x, y:y });
-            // io.to(user.room).emit('roomData', { room: user.room, users:getUsersInRoom(user.room) });
-        }
+        console.log("\n\nsending\n\n");
+        socket.broadcast.to(user.room).emit('coordinates', { x: x, y:y, points:points, score:myPoints });
         callback();
     });
 
@@ -82,12 +77,16 @@ io.on('connection', (socket) => {
 
 
     socket.on('disconnect', ()=>{
-        const user = removeUser(socket.id);
-        // if(user)
-        // {
-        //     io.to(user.room).emit('message', {user: 'admin', text:`${user.name} has left .`} )
-        // }
-        console.log("User ",user.name," has left!!");
+        // console.log(users,"\n===\n");
+        const user = getUser(socket.id);
+        removeUser(socket.id);
+        // console.log(users);
+        if(user)
+        {
+            io.to(user.room).emit('totalPlayers', {players:getUsersInRoom(user.room), left:true, name:user.name });
+            console.log("User ",user.name," has left!!");
+        }
+        // console.log("User ",user.name," has left!!");
     });
 });
 

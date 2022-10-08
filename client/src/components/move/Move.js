@@ -2,17 +2,17 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import io from 'socket.io-client';
-const Move = ({ top, left, top2, left2, onlyOne, points, room }) => {
+const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoints, msg }) => {
     let ht=<></>;
     const [fruits, setFruits] = useState([]);
-    const [myPoints, setmyPoints] = useState(0);
-    const [hisPoints, sethisPoints] = useState(0);
+    // const [myPoints, setmyPoints] = useState(0);
+    // const [hisPoints, sethisPoints] = useState(0);
     const endpoint = 'http://localhost:5000';
     let incrementPoints = (setState) => {
         setState((e)=>e+1);
     }
 
-    let socket
+    let socket 
 
     // useEffect(()=>{
     //     socket = io(endpoint);
@@ -56,45 +56,45 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room }) => {
             //       // setX2(data.x);
             //       // setY2(data.y);
             //   })
-            for(let i=0; i<9; i++) {
-            let point=fruits[i];
-            if(point[2]==false)continue;
-            // console.log(point,"PPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-            let pointX = point[0];
-            let pointY = point[1];
-            // console.log(point);
-            if(Math.abs(pointX-top)<=10 && Math.abs(pointY-left)<=10) {
-                let temp=fruits
-                temp[i][2]=false;
-                setFruits(temp);
-                incrementPoints(setmyPoints);
-                console.log("YOLO");
-                socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
-                console.log("YOLO2");
-            }
-            // if(Math.abs(pointY-left)<=10) {
-            //     point[2]=false;
-            //     incrementPoints(setmyPoints);
-            //     console.log("YOLO");
-            // }
-            if(Math.abs(pointX-top2)<=10 && Math.abs(pointX-left2)<=10) {
-                let temp=fruits
-                temp[i][2]=false;
-                setFruits(temp);
-                incrementPoints(sethisPoints);
-                console.log("YOLO");
-                // socket.emit('sendCoordinates', { x, y}, () => {
-                socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
-                console.log("YOLO2");
-            }
+        //     for(let i=0; i<9; i++) {
+        //     let point=fruits[i];
+        //     if(point[2]==false)continue;
+        //     // console.log(point,"PPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        //     let pointX = point[0];
+        //     let pointY = point[1];
+        //     // console.log(point);
+        //     if(Math.abs(pointX-top)<=10 && Math.abs(pointY-left)<=10) {
+        //         let temp=fruits
+        //         temp[i][2]=false;
+        //         setFruits(temp);
+        //         incrementPoints(setmyPoints);
+        //         console.log("YOLO");
+        //         socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
+        //         console.log("YOLO2");
+        //     }
+        //     // if(Math.abs(pointY-left)<=10) {
+        //     //     point[2]=false;
+        //     //     incrementPoints(setmyPoints);
+        //     //     console.log("YOLO");
+        //     // }
+        //     if(Math.abs(pointX-top2)<=10 && Math.abs(pointX-left2)<=10) {
+        //         let temp=fruits
+        //         temp[i][2]=false;
+        //         setFruits(temp);
+        //         incrementPoints(sethisPoints);
+        //         console.log("YOLO");
+        //         // socket.emit('sendCoordinates', { x, y}, () => {
+        //         socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
+        //         console.log("YOLO2");
+        //     }
 
-            // io.to(room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points });
-            // if(Math.abs(pointX-left2)<=10) {
-            //     point[2]=false;
-            //     incrementPoints(sethisPoints);
-            //     console.log("YOLO");
-            // }
-        }
+        //     // io.to(room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points });
+        //     // if(Math.abs(pointX-left2)<=10) {
+        //     //     point[2]=false;
+        //     //     incrementPoints(sethisPoints);
+        //     //     console.log("YOLO");
+        //     // }
+        // }
     }
     catch(e) {
 
@@ -125,7 +125,7 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room }) => {
     return (
         <> 
         <div className='leftPoint'><h1>{myPoints}</h1></div>
-        {onlyOne?<h1>Let another player join</h1>:
+        {onlyOne?<h1>{msg}</h1>:
             <div className="move-container">
                 <div
                 style={{ top: `${top}px`, left: `${left}px` }}
