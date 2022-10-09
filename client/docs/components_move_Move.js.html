@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/move/Move.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/move/Move.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// const Move = ({ top, left, top2, left2, onlyOne }) => {
+import React from 'react';
+import { useEffect, useState } from "react";
+import io from 'socket.io-client';
+
+/**
+ * This component is responsible to display the position and their movements
+ * of the players and friuts on the screen
+ * @param {number} top -top refers to x coordinate of player 1
+ * @param {number} left - left refers to y coordinate of player 1
+ * @param {number} top2 -top2 refers to x coordinate of player 1
+ * @param {number} left2 - left2 refers to y coordinate of player 1
+ * @param {number} onlyOne -onlyOne refers when only one player has joined
+ * @param {Array} points - points refers to fruit object
+ * @param {number} room -room refers to room number 
+ * @param {number} myPoints - myPoints refers to points of player 1
+ * @param {number} hisPoints - hisPoints refers to points of player 2
+ * @param {number} msg - msg refers to message to be displayed
+ */
+
+
+const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoints, msg }) => {
+    let ht=&lt;>&lt;/>;
+    const [fruits, setFruits] = useState([]);
+    // const [myPoints, setmyPoints] = useState(0);
+    // const [hisPoints, sethisPoints] = useState(0);
+    const endpoint = 'http://localhost:5000';
+    let incrementPoints = (setState) => {
+        setState((e)=>e+1);
+    }
+
+    let socket 
+
+    // useEffect(()=>{
+    //     socket = io(endpoint);
+    //     try {
+    //          socket.on('fruits', (data) => {
+    //             points = data.points
+    //             // console.log(data, "cheking ");
+    //               // setData(data);
+    //               // setX2(data.x);
+    //               // setY2(data.y);
+    //             console.log("HSLOOOOOOOOOOOOOOOOOOOOOOO");
+    //           })
+    //     }
+    //     catch(e) {
+
+    //     }
+    // },[points]);
+    useEffect(()=>{
+        // console.log(points, "heth there\n\n");
+        socket = io(endpoint);
+        setFruits(points);
+        try {
+             socket.on('fruits', (data) => {
+                setFruits(data.fruits)
+                // console.log(data, "cheking ");
+                  // setData(data);
+                  // setX2(data.x);
+                  // setY2(data.y);
+                console.log("HSLOOOOOOOOOOOOOOOOOOOOOOO");
+              })
+        }
+        catch(e) {
+
+        }
+        // checkProximity();
+        try {
+            // socket.on('fruits', (data) => {
+            //     points = data.points
+            //     // console.log(data, "cheking ");
+            //       // setData(data);
+            //       // setX2(data.x);
+            //       // setY2(data.y);
+            //   })
+        //     for(let i=0; i&lt;9; i++) {
+        //     let point=fruits[i];
+        //     if(point[2]==false)continue;
+        //     // console.log(point,"PPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        //     let pointX = point[0];
+        //     let pointY = point[1];
+        //     // console.log(point);
+        //     if(Math.abs(pointX-top)&lt;=10 &amp;&amp; Math.abs(pointY-left)&lt;=10) {
+        //         let temp=fruits
+        //         temp[i][2]=false;
+        //         setFruits(temp);
+        //         incrementPoints(setmyPoints);
+        //         console.log("YOLO");
+        //         socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
+        //         console.log("YOLO2");
+        //     }
+        //     // if(Math.abs(pointY-left)&lt;=10) {
+        //     //     point[2]=false;
+        //     //     incrementPoints(setmyPoints);
+        //     //     console.log("YOLO");
+        //     // }
+        //     if(Math.abs(pointX-top2)&lt;=10 &amp;&amp; Math.abs(pointX-left2)&lt;=10) {
+        //         let temp=fruits
+        //         temp[i][2]=false;
+        //         setFruits(temp);
+        //         incrementPoints(sethisPoints);
+        //         console.log("YOLO");
+        //         // socket.emit('sendCoordinates', { x, y}, () => {
+        //         socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
+        //         console.log("YOLO2");
+        //     }
+
+        //     // io.to(room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points });
+        //     // if(Math.abs(pointX-left2)&lt;=10) {
+        //     //     point[2]=false;
+        //     //     incrementPoints(sethisPoints);
+        //     //     console.log("YOLO");
+        //     // }
+        // }
+    }
+    catch(e) {
+
+    }
+
+    try {
+        // socket.broadcast.to(room).emit('updatedFruits', { fruits:fruits, room:room });
+        console.log("sent it");
+    }
+    catch(e) {
+
+    }
+    },[points, top, left, top2, left2, onlyOne, fruits]);    
+    /**
+     * This function display based on array
+     * @param {Array&lt;number>} point - The this is the point Array referring to fruit
+     * @param {number} i - array to point index
+     */
+    let func=(point, i)=>{
+        if(point[2])
+            return(
+            &lt;div key={i}>
+                            &lt;div
+                                style={{ top: `${point[0]}px`, left: `${point[1]}px` }}
+                                className="point"
+                            >&lt;/div>
+                        &lt;/div>
+            );
+        else
+            return null;
+    }
+    return (
+        &lt;> 
+        
+        {onlyOne?&lt;div className='msgContainer'>&lt;h1>{msg}&lt;/h1>&lt;/div>:
+        &lt;div className='outerContainer'>
+        &lt;div className='leftPoint'>&lt;h1>{myPoints}&lt;/h1>&lt;/div>
+            &lt;div className="move-container">
+                &lt;div
+                style={{ top: `${top}px`, left: `${left}px` }}
+                className="move-div1"
+                >&lt;/div>
+                &lt;div>
+                    {fruits.map((point, i) => func(point, i))}
+                &lt;/div>
+                &lt;div
+                style={{ top: `${top2}px`, left: `${left2}px` }}
+                className="move-div2"
+                >&lt;/div>                
+            &lt;/div>
+            &lt;div className='rightPoint'>&lt;h1>{hisPoints}&lt;/h1>&lt;/div>
+            &lt;/div>
+        }
+        &lt;/>
+    );
+}
+export default Move;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#getRandomInt">getRandomInt</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUsersInRoom">getUsersInRoom</a></li><li><a href="global.html#Move">Move</a></li><li><a href="global.html#removeUser">removeUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Oct 09 2022 23:03:47 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -2,6 +2,23 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import io from 'socket.io-client';
+
+/**
+ * This component is responsible to display the position and their movements
+ * of the players and friuts on the screen
+ * @param {number} top -top refers to x coordinate of player 1
+ * @param {number} left - left refers to y coordinate of player 1
+ * @param {number} top2 -top2 refers to x coordinate of player 1
+ * @param {number} left2 - left2 refers to y coordinate of player 1
+ * @param {number} onlyOne -onlyOne refers when only one player has joined
+ * @param {Array} points - points refers to fruit object
+ * @param {number} room -room refers to room number 
+ * @param {number} myPoints - myPoints refers to points of player 1
+ * @param {number} hisPoints - hisPoints refers to points of player 2
+ * @param {number} msg - msg refers to message to be displayed
+ */
+
+
 const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoints, msg }) => {
     let ht=<></>;
     const [fruits, setFruits] = useState([]);
@@ -14,22 +31,7 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
 
     let socket 
 
-    // useEffect(()=>{
-    //     socket = io(endpoint);
-    //     try {
-    //          socket.on('fruits', (data) => {
-    //             points = data.points
-    //             // console.log(data, "cheking ");
-    //               // setData(data);
-    //               // setX2(data.x);
-    //               // setY2(data.y);
-    //             console.log("HSLOOOOOOOOOOOOOOOOOOOOOOO");
-    //           })
-    //     }
-    //     catch(e) {
-
-    //     }
-    // },[points]);
+    
     useEffect(()=>{
         // console.log(points, "heth there\n\n");
         socket = io(endpoint);
@@ -37,10 +39,6 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
         try {
              socket.on('fruits', (data) => {
                 setFruits(data.fruits)
-                // console.log(data, "cheking ");
-                  // setData(data);
-                  // setX2(data.x);
-                  // setY2(data.y);
                 console.log("HSLOOOOOOOOOOOOOOOOOOOOOOO");
               })
         }
@@ -49,52 +47,7 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
         }
         // checkProximity();
         try {
-            // socket.on('fruits', (data) => {
-            //     points = data.points
-            //     // console.log(data, "cheking ");
-            //       // setData(data);
-            //       // setX2(data.x);
-            //       // setY2(data.y);
-            //   })
-        //     for(let i=0; i<9; i++) {
-        //     let point=fruits[i];
-        //     if(point[2]==false)continue;
-        //     // console.log(point,"PPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-        //     let pointX = point[0];
-        //     let pointY = point[1];
-        //     // console.log(point);
-        //     if(Math.abs(pointX-top)<=10 && Math.abs(pointY-left)<=10) {
-        //         let temp=fruits
-        //         temp[i][2]=false;
-        //         setFruits(temp);
-        //         incrementPoints(setmyPoints);
-        //         console.log("YOLO");
-        //         socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
-        //         console.log("YOLO2");
-        //     }
-        //     // if(Math.abs(pointY-left)<=10) {
-        //     //     point[2]=false;
-        //     //     incrementPoints(setmyPoints);
-        //     //     console.log("YOLO");
-        //     // }
-        //     if(Math.abs(pointX-top2)<=10 && Math.abs(pointX-left2)<=10) {
-        //         let temp=fruits
-        //         temp[i][2]=false;
-        //         setFruits(temp);
-        //         incrementPoints(sethisPoints);
-        //         console.log("YOLO");
-        //         // socket.emit('sendCoordinates', { x, y}, () => {
-        //         socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
-        //         console.log("YOLO2");
-        //     }
-
-        //     // io.to(room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points });
-        //     // if(Math.abs(pointX-left2)<=10) {
-        //     //     point[2]=false;
-        //     //     incrementPoints(sethisPoints);
-        //     //     console.log("YOLO");
-        //     // }
-        // }
+           
     }
     catch(e) {
 
@@ -108,7 +61,11 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
 
     }
     },[points, top, left, top2, left2, onlyOne, fruits]);    
-
+    /**
+     * This function display based on array
+     * @param {Array<number>} point - The this is the point Array referring to fruit
+     * @param {number} i - array to point index
+     */
     let func=(point, i)=>{
         if(point[2])
             return(
