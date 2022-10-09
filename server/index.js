@@ -56,10 +56,30 @@ io.on('connection', (socket) => {
         callback(getUsersInRoom(room));
         // callback(); 
     });
-    socket.on('sendCoordinates', ({x, y, points, myPoints}, callback) => {
+    socket.on('getPoints', (data, callback) => {
         const user = getUser(socket.id);
         console.log("\n\nsending\n\n");
-        socket.broadcast.to(user.room).emit('coordinates', { x: x, y:y, points:points, score:myPoints });
+        // , points, myPoints
+        // socket.broadcast.to(user.room).emit('coordinates', { x: x, y:y, points:points, score:myPoints });
+        // if(typeof data.x!== "undefined")
+        socket.broadcast.to(user.room).emit('sendingPoints', { opponent: data.myPoints});
+        // if(typeof data.points!== "undefined")
+        // socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
+        // if(typeof data.myPoints!== "undefined")
+        // socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
+        callback();
+    });
+    socket.on('sendCoordinates', (data, callback) => {
+        const user = getUser(socket.id);
+        console.log("\n\nsending\n\n");
+        // , points, myPoints
+        // socket.broadcast.to(user.room).emit('coordinates', { x: x, y:y, points:points, score:myPoints });
+        if(typeof data.x!== "undefined")
+        socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
+        if(typeof data.points!== "undefined")
+        socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
+        if(typeof data.myPoints!== "undefined")
+        socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
         callback();
     });
 

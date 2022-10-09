@@ -124,8 +124,10 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
     }
     return (
         <> 
+        
+        {onlyOne?<div className='msgContainer'><h1>{msg}</h1></div>:
+        <div className='outerContainer'>
         <div className='leftPoint'><h1>{myPoints}</h1></div>
-        {onlyOne?<h1>{msg}</h1>:
             <div className="move-container">
                 <div
                 style={{ top: `${top}px`, left: `${left}px` }}
@@ -139,8 +141,9 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
                 className="move-div2"
                 ></div>                
             </div>
+            <div className='rightPoint'><h1>{hisPoints}</h1></div>
+            </div>
         }
-        <div className='rightPoint'><h1>{hisPoints}</h1></div>
         </>
     );
 }

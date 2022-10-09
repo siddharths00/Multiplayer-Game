@@ -23,7 +23,7 @@ const Game = () => {
     const pixelDistance=20;
     const [x, setX] = useState(0)
     const [y, setY] = useState(0)
-    const [x2, setX2] = useState(405)
+    const [x2, setX2] = useState(404)
     const [y2, setY2] = useState(880)
     useEffect(()=>{
         // The following code acts like componentDidMount and componentDidUpdate.
@@ -99,11 +99,14 @@ const Game = () => {
         if(data.players.length==2) {
           setonlyOne(false);
           setPoints(data.points);
+          // socket.emit('sendCoordinates', { points}, () => {
+          //   console.log("sent it");
+          // });
           // console.log(data);
         }
         else {
           setonlyOne(true)
-          if(data.left) {
+          if(data.left && (hisPoints+myPoints)<9) {
             setMsg(`${data.name} left so you won`);
           }
         }
@@ -120,11 +123,15 @@ const Game = () => {
   useEffect(() => {
     socket.on('coordinates', (data) => {
       console.log("yes this happened");
-      console.log("before ", x2, y2);
+      console.log("before ", x2, y2, data.x, data.y);
         setData(data);
+        if(data.x)
         setX2(data.x);
+        if(data.y)
         setY2(data.y);
+        if(data.points)
         setPoints(data.points);
+        if(data.score)
         sethisPoints(data.score);
         console.log("after ", x2, y2);
     })
@@ -151,78 +158,79 @@ const Game = () => {
             let a=x;
             let b=y;
             if (e.keyCode == up){
-              setX((top) => (top - pixelDistance >= 0 ? top - pixelDistance : 0));
+              let temp = (x - pixelDistance >= 0 ? x - pixelDistance : 0);
+              if(Math.abs(temp-x2)>15 || Math.abs(y-y2)>15) 
+                  setX((top) => (top - pixelDistance >= 0 ? top - pixelDistance : 0));
               // a=(x - pixelDistance >= 0 ? x - pixelDistance : 0);
             }
             else if (e.keyCode == down){
-              setX((top) => top + pixelDistance <= 405 ? top + pixelDistance : 405);
+              let temp = (x + pixelDistance <= 405 ? x + pixelDistance : 405);
+              if(Math.abs(temp-x2)>15|| Math.abs(y-y2)>15) 
+                  setX((top) => top + pixelDistance <= 405 ? top + pixelDistance : 405);
               // a=x + pixelDistance <= 610 ? x + pixelDistance : 610
             }
             else if (e.keyCode == left){
-              setY((left) => left - pixelDistance >= 0 ? left - pixelDistance : 0);
+              let temp = ( y - pixelDistance >= 0 ? y - pixelDistance : 0);
+              if(Math.abs(temp-y2)>15|| Math.abs(x-x2)>15) 
+                  setY((left) => left - pixelDistance >= 0 ? left - pixelDistance : 0);
               // b=y - pixelDistance >= 0 ? y - pixelDistance : 0
             }
             else if (e.keyCode == right){
-              setY((left) => left + pixelDistance <= 880 ? left + pixelDistance : 880);
+              let temp = (y + pixelDistance <= 880 ? y + pixelDistance : 880);
+              if(Math.abs(temp-y2)>15|| Math.abs(x-x2)>15) 
+                  setY((left) => left + pixelDistance <= 880 ? left + pixelDistance : 880);
               console.log("yoyo ", x, y);
               // b=y + pixelDistance <= 1360 ? y + pixelDistance : 1360
             }
             else return;
 
-            for(let i=0; i<9; i++) {
-              let point=points[i];
-              if(point[2]==false)continue;
-              // console.log(point,"PPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-              let pointX = point[0];
-              let pointY = point[1];
-              // console.log(point);
-              if(Math.abs(pointX-x)<=10 && Math.abs(pointY-y)<=10) {
-                  let temp=points
-                  temp[i][2]=false;
-                  console.log(points);
-                  setPoints(temp);
-                  console.log(points);
-                  // incrementPoints(setmyPoints);
-                  setmyPoints((e)=>e+1);
-                  console.log("YOLO");
-                  // socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
-                  console.log("YOLO2");
-              }
-              // if(Math.abs(pointY-left)<=10) {
-              //     point[2]=false;
-              //     incrementPoints(setmyPoints);
-              //     console.log("YOLO");
-              // }
-              // if(Math.abs(pointX-x2)<=10 && Math.abs(pointX-y2)<=10) {
-              //     let temp=points
-              //     temp[i][2]=false;
-              //     console.log(points);
-              //     setPoints(temp);
-              //     console.log(points);
-              //     incrementPoints(sethisPoints);
-              //     console.log("YOLO");
-              //     // socket.emit('sendCoordinates', { x, y}, () => {
-              //     // socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
-              //     console.log("YOLO2");
-              // }
-  
-              // io.to(room).emit('totalPlayers', {players:getUsersInRoom(user.room), points:points });
-              // if(Math.abs(pointX-left2)<=10) {
-              //     point[2]=false;
-              //     incrementPoints(sethisPoints);
-              //     console.log("YOLO");
-              // }
-          }
-          console.log("sending ", x, y);
-          socket.emit('sendCoordinates', { x, y, points, myPoints}, () => {
-            console.log("sent it");
-          });
+          //   for(let i=0; i<9; i++) {
+          //     let point=points[i];
+          //     if(point[2]==false)continue;
+          //     // console.log(point,"PPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+          //     let pointX = point[0];
+          //     let pointY = point[1];
+          //     // console.log(point);
+          //     if(Math.abs(pointX-x)<=10 && Math.abs(pointY-y)<=10) {
+          //         let temp=points
+          //         temp[i][2]=false;
+          //         console.log(points);
+          //         setPoints(temp);
+          //         console.log(points);
+          //         // incrementPoints(setmyPoints);
+          //         setmyPoints((e)=>e+1);
+          //         console.log("YOLO");
+          //         // socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
+          //         console.log("YOLO2");
+          //     }
+          // }
+          // console.log("sending ", x, y);
+          // socket.emit('sendCoordinates', { x, y, points, myPoints}, () => {
+          //   console.log("sent it");
+          // });
 
             // console.log(x, y);
             
           }
           // window.addEventListener('mousemove', update)
           window.addEventListener('keydown', update)
+          
+          socket.emit('getPoints', { myPoints }, () => {
+            console.log("sent it");
+          });
+          socket.on('sendingPoints', ({ opponent }) => {
+            console.log("Opponent points ", opponent);
+            if(opponent + myPoints == 9) {
+              if(opponent > myPoints) {
+                setonlyOne(true);
+                setMsg("YOU LOST");
+              }
+              else {
+                setonlyOne(true);
+                setMsg("YOU WON");
+              }
+            }
+          })
           
           return () => {
             // window.removeEventListener('mousemove', update)
@@ -232,6 +240,75 @@ const Game = () => {
         },
         [x, y, points, myPoints]
       );
+
+      useEffect(()=>{
+        console.log("sending ", x, y);
+        // if(points===[])
+          socket.emit('sendCoordinates', { x, y, myPoints}, () => {
+            console.log("sent it");
+          });
+        // else
+        // socket.emit('sendCoordinates', { x, y, myPoints}, () => {
+        //   console.log("sent it");
+        // });
+
+          try{
+          for(let i=0; i<9; i++) {
+            let point=points[i];
+            if(point[2]==false)continue;
+            // console.log(point,"PPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+            let pointX = point[0];
+            let pointY = point[1];
+            // console.log(point);
+            if(Math.abs(pointX-x)<=15 && Math.abs(pointY-y)<=15) {
+                let temp=points
+                temp[i][2]=false;
+                console.log(points);
+                setPoints(temp);
+                socket.emit('sendCoordinates', { points:temp}, () => {
+                  console.log("sent it");
+                });
+                console.log(points);
+                // incrementPoints(setmyPoints);
+                setmyPoints((e)=>e+1);
+                console.log("YOLO");
+                // socket.emit('updatedFruits', { fruits:fruits, room:room }, ()=>{});
+                console.log("YOLO2");
+            }
+        }
+      }
+      catch(e){
+
+      }
+
+      },[x, y]);
+
+      // useEffect(()=>{
+      //   // console.log("sending ", x, y);
+      //     socket.emit('sendCoordinates', { points}, () => {
+      //       console.log("sent it");
+      //     });
+      // },[points]);
+
+      // useEffect(()=>{
+      //   // console.log("sending ", x, y);
+      //     socket.emit('getPoints', { myPoints }, () => {
+      //       console.log("sent it");
+      //     });
+      //     socket.on('sendingPoints', ({ opponent }) => {
+      //       console.log("Opponent points ", opponent);
+      //       if(opponent + myPoints == 9) {
+      //         if(opponent > myPoints) {
+      //           setonlyOne(true);
+      //           setMsg("YOU LOST");
+      //         }
+      //         else {
+      //           setonlyOne(true);
+      //           setMsg("YOU WON");
+      //         }
+      //       }
+      //     });
+      // },[myPoints]);
 
     // let points = [];
     // function getRandomInt(max) {

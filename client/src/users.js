@@ -19,11 +19,11 @@ const addUser = ({id, name, room}) => {
 };
 
 const getRandomInt = (max) => {
-    return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max); 
 }    
 const removeUser = (id) => {
     const index = users.findIndex((user) => user.id === id);
-    if(index!=-1){
+    if(index!==-1){
         return users.splice(index, 1)[0];
     }
 };
@@ -32,7 +32,19 @@ const getUser = (id) => users.find((user) => user.id === id);
 
 const getUsersInRoom = (room) => {
     // console.log("Trying to print\n",users.filter((user) => user.room === room),"\n");
+    console.log(users.filter((user) => user.room === room), room,'*****');
     return users.filter((user) => user.room === room);
 }
 
-module.exports = { addUser, removeUser, getUser, getRandomInt, getUsersInRoom, users };
+const alreadyInRoom = (name, room) => {
+    // console.log("Trying to print\n",users.filter((user) => user.room === room),"\n");
+    // let temp = users.filter((user) => user.room === room);
+    // users.forEach((user) => {
+    //     console.log("checing ", user.name, " and ", user.room);
+    //     if(user.room === room && user.name === name)
+    //     return true;
+    // });
+    return users;
+}
+
+module.exports = { addUser, removeUser, getUser, getRandomInt, alreadyInRoom, getUsersInRoom, users };

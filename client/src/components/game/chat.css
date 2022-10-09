@@ -33,6 +33,15 @@
     }
   }
 
+  .msgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1A1A1D;
+    color: blanchedalmond;
+  }
+
   body {
     overflow: hidden;
   }
@@ -42,9 +51,15 @@
   }
   
   .move-container {
+    /* display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    align-items: center;
+    background-color: #1A1A1D; */
     width: 900px;
     height: 425px;
-    border: solid black 1px;
+    border: solid white 1px;
     position: relative;
     margin: 0 auto;
     margin-top: 10px;
@@ -53,14 +68,14 @@
   .move-div1 {
     width: 20px;
     height: 20px;
-    background-color: blue;
+    background-color:cadetblue;
     position: absolute;
   }
 
   .move-div2 {
     width: 20px;
     height: 20px;
-    background-color: red;
+    background-color:brown;
     position: absolute;
   }
   
@@ -82,10 +97,12 @@
   .leftPoint {
     width: 20px;
     height: 20px;
+    color: orangered;
   }
   
-  .rightpoint{
+  .rightPoint{
     width: 20px;
     height: 20px;
+    color: orangered;
   }
   
