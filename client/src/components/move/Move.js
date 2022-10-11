@@ -1,4 +1,3 @@
-// const Move = ({ top, left, top2, left2, onlyOne }) => {
 import React from 'react';
 import { useEffect, useState } from "react";
 import io from 'socket.io-client';
@@ -22,8 +21,6 @@ import io from 'socket.io-client';
 const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoints, msg }) => {
     let ht=<></>;
     const [fruits, setFruits] = useState([]);
-    // const [myPoints, setmyPoints] = useState(0);
-    // const [hisPoints, sethisPoints] = useState(0);
     const endpoint = 'http://localhost:5000';
     let incrementPoints = (setState) => {
         setState((e)=>e+1);
@@ -31,9 +28,7 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
 
     let socket 
 
-    
     useEffect(()=>{
-        // console.log(points, "heth there\n\n");
         socket = io(endpoint);
         setFruits(points);
         try {
@@ -45,21 +40,7 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
         catch(e) {
 
         }
-        // checkProximity();
-        try {
-           
-    }
-    catch(e) {
-
-    }
-
-    try {
-        // socket.broadcast.to(room).emit('updatedFruits', { fruits:fruits, room:room });
-        console.log("sent it");
-    }
-    catch(e) {
-
-    }
+        
     },[points, top, left, top2, left2, onlyOne, fruits]);    
     /**
      * This function display based on array

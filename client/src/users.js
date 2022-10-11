@@ -56,19 +56,11 @@ const getUser = (id) => users.find((user) => user.id === id);
  * @returns {Array} - returns the array of the player in the room
  */
 const getUsersInRoom = (room) => {
-    // console.log("Trying to print\n",users.filter((user) => user.room === room),"\n");
     console.log(users.filter((user) => user.room === room), room,'*****');
     return users.filter((user) => user.room === room);
 }
 
 const alreadyInRoom = (name, room) => {
-    // console.log("Trying to print\n",users.filter((user) => user.room === room),"\n");
-    // let temp = users.filter((user) => user.room === room);
-    // users.forEach((user) => {
-    //     console.log("checing ", user.name, " and ", user.room);
-    //     if(user.room === room && user.name === name)
-    //     return true;
-    // });
     return users;
 }
 

@@ -1,26 +1,52 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-// import Join from './components/join/Join.js';
-// import Chat from 'C:\\Users\\siddh\\Desktop\\Sisyphus\\Programming\\React\\real-time-chat\\client\\src\\components\\chat\\Chat.js';
 import { useState } from 'react';
 import io from 'socket.io-client';
-// import useMousePosition from '../../controllers/Mouse';
 import { Link } from 'react-router-dom';
 import './join.css';
 const endpoint = 'http://localhost:5000';
-
+let socket=io(endpoint);
 const Join = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [msg, setMsg] = useState('');
     return (
         <> 
             <div className = "joinOuterContainer">
                 <div className = "joinInnerContainer">
                     <h1 className="heading">Join</h1>
-                    <div><input placeholder="Name" className = "joinInput" type="text" onChange={(event) => setName(event.target.value)}/></div>
-                    <div><input placeholder="Room" className = "joinInput mt-20" type="text" onChange={(event) => setRoom(event.target.value)}/></div>
-                    <Link onClick={(event) => (!name || !room)?event.preventDefault():null} to={`/game?name=${name}&room=${room}`}>
+                    {true?<p className='error'>{msg}</p>:null}
+                    <div><input placeholder="Name" className = "joinInput" type="text" onChange={(event) => {
+                        setName(event.target.value);
+                        setMsg('');
+                        }}/></div>
+                    <div><input placeholder="Room" className = "joinInput mt-20" type="text" onChange={(event) => {
+                        setRoom(event.target.value);
+                        setMsg('');
+                        }}/></div>
+                    <Link onClick={(event) => {
+
+                        // console.log("testing");
+                        
+                        // (!name || !room)?event.preventDefault():null                
+                        event.preventDefault();
+                        socket.emit('getUsers', { room}, (val) => {
+                            console.log(val);
+                            if(val.length == 2) {
+                                setMsg("2 People already in the room")
+                            }
+                            else if(val.length == 1 && val[0].name===name) {
+                                // event.preventDefault();
+                                setMsg(`There is already a player by that name. Choose another`);
+                            }
+                            else {
+                                console.log("hellot ehre");
+                                window.location.href = `/game?name=${name}&room=${room}`;
+                            }
+                        });
+                    
+                    }} to={`/game?name=${name}&room=${room}`}>
                         <button className="button mt-20" type="submit">Sign In</button>
                     </Link>
                 </div>

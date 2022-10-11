@@ -20,6 +20,13 @@ html, body {
     align-items: center;
     background-color: #1A1A1D;
   }
+
+  .error {
+    color: red;
+    font-size: 1em;
+    padding-bottom: 10px;
+    /* border-bottom: 2px solid white; */
+  }
   
   .joinInnerContainer {
     width: 20%;
