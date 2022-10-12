@@ -167,7 +167,7 @@ const Game = () => {
       useEffect(()=>{
         console.log("sending ", x, y);
         // if(points===[])
-          socket.emit('sendCoordinates', { x, y, myPoints}, () => {
+          socket.emit('sendCoordinates', { x, y, myPoints, delay:1000}, () => {
             console.log("sent it");
           });
           try{
@@ -181,7 +181,7 @@ const Game = () => {
                 temp[i][2]=false;
                 console.log(points);
                 setPoints(temp);
-                socket.emit('sendCoordinates', { points:temp}, () => {
+                socket.emit('sendCoordinates', { points:temp, delay:1000}, () => {
                   console.log("sent it");
                 });
                 console.log(points);

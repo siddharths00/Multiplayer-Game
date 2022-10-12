@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
 const socketio= require('socket.io')
-const io = socketio(server, {cors: {origin: "http://localhost:3000"}});
+const io = socketio(server, {cors: {origin: "*"}});
 
 app.use(cors());
 io.on('connection', (socket) => {
@@ -56,13 +56,15 @@ io.on('connection', (socket) => {
     socket.on('sendCoordinates', (data, callback) => {
         const user = getUser(socket.id);
         console.log("\n\nsending\n\n");
-        if(typeof data.x!== "undefined")
-        socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
-        if(typeof data.points!== "undefined")
-        socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
-        if(typeof data.myPoints!== "undefined")
-        socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
-        callback();
+        setTimeout(function() {
+            if(typeof data.x!== "undefined")
+            socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
+            if(typeof data.points!== "undefined")
+            socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
+            if(typeof data.myPoints!== "undefined")
+            socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
+            callback();
+          }, data.delay);
     });
 
     socket.on('updatedFruits', ({fruits, room}, callback) => {

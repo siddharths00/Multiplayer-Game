@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import './join.css';
 const endpoint = 'http://localhost:5000';
+// io.origins('*:*');
 let socket=io(endpoint);
 const Join = () => {
     const [name, setName] = useState('');
@@ -31,6 +32,10 @@ const Join = () => {
                         
                         // (!name || !room)?event.preventDefault():null                
                         event.preventDefault();
+                        console.log("just checking");
+                        import("../../users").then(userMod => {
+                            console.log(userMod.users);
+                          });
                         socket.emit('getUsers', { room}, (val) => {
                             console.log(val);
                             if(val.length == 2) {
