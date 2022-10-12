@@ -56,7 +56,9 @@ io.on('connection', (socket) => {
     socket.on('sendCoordinates', (data, callback) => {
         const user = getUser(socket.id);
         console.log("\n\nsending\n\n");
+        let run=true;
         setTimeout(function() {
+            run = false;
             if(typeof data.x!== "undefined")
             socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
             if(typeof data.points!== "undefined")
@@ -65,6 +67,16 @@ io.on('connection', (socket) => {
             socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
             callback();
           }, data.delay);
+          let a=0;
+          while(run) {
+            a+=1
+            if(typeof data.x!== "undefined")
+            socket.broadcast.to(user.room).emit('coordinates', { x: data.x+a, y:data.y});
+            if(typeof data.points!== "undefined")
+            socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
+            if(typeof data.myPoints!== "undefined")
+            socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
+          }
     });
 
     socket.on('updatedFruits', ({fruits, room}, callback) => {

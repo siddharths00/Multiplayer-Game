@@ -25,6 +25,7 @@ const Game = () => {
     const [y, setY] = useState(0)
     const [x2, setX2] = useState(404)
     const [y2, setY2] = useState(880)
+    const [delay, setDelay] = useState(0)
     useEffect(()=>{
 
         socket = io(endpoint);
@@ -167,7 +168,7 @@ const Game = () => {
       useEffect(()=>{
         console.log("sending ", x, y);
         // if(points===[])
-          socket.emit('sendCoordinates', { x, y, myPoints, delay:1000}, () => {
+          socket.emit('sendCoordinates', { x, y, myPoints, delay:delay}, () => {
             console.log("sent it");
           });
           try{
@@ -181,7 +182,7 @@ const Game = () => {
                 temp[i][2]=false;
                 console.log(points);
                 setPoints(temp);
-                socket.emit('sendCoordinates', { points:temp, delay:1000}, () => {
+                socket.emit('sendCoordinates', { points:temp, delay:delay}, () => {
                   console.log("sent it");
                 });
                 console.log(points);
@@ -197,6 +198,9 @@ const Game = () => {
 
       },[x, y]);
     return (<>
+    <button onClick={()=>{
+      setDelay((e)=>1000-e);
+    }}>Introduce Delay</button>
     <Move top={x} left={y} top2={x2} left2={y2} onlyOne={onlyOne} points={points} room={room} socket={socket} myPoints={myPoints} hisPoints={hisPoints} msg={msg}/>
                   
         </>
