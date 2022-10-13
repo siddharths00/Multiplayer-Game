@@ -5,9 +5,11 @@ import { useState } from 'react';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import './join.css';
-const endpoint = 'https://multiplayer-game-01.herokuapp.com/';
+const endpoint = 'localhost:5000';
 // io.origins('*:*');
-let socket=io(endpoint, {cors: {origin: "*"}});
+let socket=io(endpoint, {
+    transports: ["websocket"] // use webSocket only
+  });
 const Join = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');

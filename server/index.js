@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
-
+const { Server } = require('ws');
 
 // const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
 const { addUser, removeUser, getUser, getUsersInRoom, getRandomInt, users } = require('../client/src/users');
@@ -12,9 +12,10 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
 const socketio= require('socket.io')
-const io = socketio(server, {cors: {origin: "https://63471f3a16faba027c7cfa09--super-cool-site-by-aquila1939.netlify.app/"}});
+const io = socketio(server, {cors: {origin: "*"}});
+// const io = new Server({ server });
 
-app.use(cors({origin: "https://63471f3a16faba027c7cfa09--super-cool-site-by-aquila1939.netlify.app/"}));
+app.use(cors({origin: "localhost:3000"}));
 // app.use
 io.on('connection', (socket) => {
     socket.on('join', ({name, room}, callback) => { 
