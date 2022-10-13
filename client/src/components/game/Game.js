@@ -18,7 +18,7 @@ const Game = () => {
     const [myPoints, setmyPoints] = useState(0);
     const [hisPoints, sethisPoints] = useState(0);
     const [msg, setMsg] = useState('Let another player join');
-    const endpoint = 'http://localhost:5000';
+    const endpoint = 'https://multiplayer-game-01.herokuapp.com/';
     const [searchParams] = useSearchParams();
     const pixelDistance=20;
     const [x, setX] = useState(0)

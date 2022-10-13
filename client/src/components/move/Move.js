@@ -21,7 +21,7 @@ import io from 'socket.io-client';
 const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoints, msg }) => {
     let ht=<></>;
     const [fruits, setFruits] = useState([]);
-    const endpoint = 'http://localhost:5000';
+    const endpoint = 'https://multiplayer-game-01.herokuapp.com/';
     let incrementPoints = (setState) => {
         setState((e)=>e+1);
     }

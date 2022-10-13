@@ -12,9 +12,10 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
 const socketio= require('socket.io')
-const io = socketio(server, {cors: {origin: "*"}});
+const io = socketio(server, {cors: {origin: "https://63471f3a16faba027c7cfa09--super-cool-site-by-aquila1939.netlify.app/"}});
 
-app.use(cors());
+app.use(cors({origin: "https://63471f3a16faba027c7cfa09--super-cool-site-by-aquila1939.netlify.app/"}));
+// app.use
 io.on('connection', (socket) => {
     socket.on('join', ({name, room}, callback) => { 
 
@@ -67,16 +68,16 @@ io.on('connection', (socket) => {
             socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
             callback();
           }, data.delay);
-          let a=0;
-          while(run) {
-            a+=1
-            if(typeof data.x!== "undefined")
-            socket.broadcast.to(user.room).emit('coordinates', { x: data.x+a, y:data.y});
-            if(typeof data.points!== "undefined")
-            socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
-            if(typeof data.myPoints!== "undefined")
-            socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
-          }
+        //   let a=0;
+        //   while(run) {
+        //     a+=1
+        //     if(typeof data.x!== "undefined")
+        //     socket.broadcast.to(user.room).emit('coordinates', { x: data.x+a, y:data.y});
+        //     if(typeof data.points!== "undefined")
+        //     socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
+        //     if(typeof data.myPoints!== "undefined")
+        //     socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
+        //   }
     });
 
     socket.on('updatedFruits', ({fruits, room}, callback) => {

@@ -5,9 +5,9 @@ import { useState } from 'react';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import './join.css';
-const endpoint = 'http://localhost:5000';
+const endpoint = 'https://multiplayer-game-01.herokuapp.com/';
 // io.origins('*:*');
-let socket=io(endpoint);
+let socket=io(endpoint, {cors: {origin: "*"}});
 const Join = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
@@ -33,9 +33,9 @@ const Join = () => {
                         // (!name || !room)?event.preventDefault():null                
                         event.preventDefault();
                         console.log("just checking");
-                        import("../../users").then(userMod => {
-                            console.log(userMod.users);
-                          });
+                        // import("../../users").then(userMod => {
+                        //     console.log(userMod.users);
+                        //   });
                         socket.emit('getUsers', { room}, (val) => {
                             console.log(val);
                             if(val.length == 2) {

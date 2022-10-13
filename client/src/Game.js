@@ -28,7 +28,7 @@ const Game = () => {
     const [room, setRoom] = useState('');
     const [data, setData] = useState([]);
 
-    const endpoint = 'http://localhost:5000';
+    const endpoint = 'https://multiplayer-game-01.herokuapp.com/';
     const [searchParams] = useSearchParams();
     const pixelDistance=20;
     const [x, setX] = useState(0)
