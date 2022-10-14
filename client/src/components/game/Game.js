@@ -205,7 +205,7 @@ const Game = () => {
       },[x, y]);
     return (<>
     <button onClick={()=>{
-      setDelay((e)=>2000-e);
+      setDelay((e)=>5000-e);
     }}>Introduce Delay</button>
     <Move top={x} left={y} top2={x2} left2={y2} onlyOne={onlyOne} points={points} room={room} socket={socket} myPoints={myPoints} hisPoints={hisPoints} msg={msg}/>
                   

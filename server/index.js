@@ -27,6 +27,35 @@ const socketio= require('socket.io')
 //         origin: "*"
 //     }
 // })
+
+class Queue {
+    constructor() {
+      this.elements = {};
+      this.head = 0;
+      this.tail = 0;
+    }
+    enqueue(element) {
+      this.elements[this.tail] = element;
+      this.tail++;
+    }
+    dequeue() {
+      const item = this.elements[this.head];
+      delete this.elements[this.head];
+      this.head++;
+      return item;
+    }
+    peek() {
+      return this.elements[this.head];
+    }
+    get length() {
+      return this.tail - this.head;
+    }
+    get isEmpty() {
+      return this.length === 0;
+    }
+  }
+  let toBeSent = new Queue();  
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "localhost:3000");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -78,29 +107,53 @@ io.on('connection', (socket) => {
     });
     socket.on('getPoints', (data, callback) => {
         const user = getUser(socket.id);
-        console.log("\n\nsending\n\n");
+        // console.log("\n\nsending\n\n");
         socket.broadcast.to(user.room).emit('sendingPoints', { opponent: data.myPoints});
         callback();
     });
     socket.on('sendCoordinates', (data, callback) => {
         const user = getUser(socket.id);
-        console.log("\n\nsending\n\n");
+        // console.log("\n\nsending\n\n");
         let run=true;
+        let a=0;
+        let interval;
+        if(data.delay!==0){
+            console.log(user.name, user.room, data.delay);
+            interval=setInterval(function () {
+                a+=1;
+                toBeSent.enqueue([data.x, data.y+2*a]);
+                while (!toBeSent.isEmpty) {
+                    // console.log(q.dequeue());
+                    let m = toBeSent.dequeue();
+                    console.log("SENDING STUFf, ",m);
+                    socket.broadcast.to(user.room).emit('coordinates', { x: m[0], y:m[1]});
+                  }
+                
+                // console.log(`send ${data.x} ${data.y+a}`);
+            }, 200);
+            
+        }
         setTimeout(function() {
             run = false;
-            if(typeof data.x!== "undefined")
-            socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
+            if(data.delay!==0){
+                clearInterval(interval);
+            }
+            if(typeof data.x!== "undefined") {
+                // moveUser(socket.id, )
+                
+                socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
+            }
             if(typeof data.points!== "undefined")
             socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
             if(typeof data.myPoints!== "undefined")
             socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
             callback();
           }, data.delay);
-        //   let a=0;
+          
         //   while(run) {
         //     a+=1
         //     if(typeof data.x!== "undefined")
-        //     socket.broadcast.to(user.room).emit('coordinates', { x: data.x+a, y:data.y});
+        //     socket.broadcast.to(user.room).emit('coordinates', { x: data.x+1, y:data.y});
         //     if(typeof data.points!== "undefined")
         //     socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
         //     if(typeof data.myPoints!== "undefined")
