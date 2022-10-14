@@ -1,7 +1,10 @@
 const express = require('express');
+const https = require('https');
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('ws');
+var fs = require('fs');    
+
 
 // const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
 const { addUser, removeUser, getUser, getUsersInRoom, getRandomInt, users } = require('../client/src/users');
@@ -9,13 +12,34 @@ const { addUser, removeUser, getUser, getUsersInRoom, getRandomInt, users } = re
 
 const PORT = process.env.PORT || 5000;
 
+var options = {
+    key: fs.readFileSync('cert.key','utf-8'),
+    cert: fs.readFileSync('cert.crt','utf-8')
+};
+
 const app = express();
 const server = http.createServer(app);
 const socketio= require('socket.io')
+
+// const server = https.createServer(app);
+// const socketio= require('socket.io')(https, {
+//     cors: {
+//         origin: "*"
+//     }
+// })
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "localhost:3000");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+    next();
+});
+
+
 const io = socketio(server, {cors: {origin: "*"}});
 // const io = new Server({ server });
 
-app.use(cors({origin: "localhost:3000"}));
+app.use(cors({origin: "s://localhost:3000"}));
 // app.use
 io.on('connection', (socket) => {
     socket.on('join', ({name, room}, callback) => { 

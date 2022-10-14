@@ -5,10 +5,14 @@ import { useState } from 'react';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import './join.css';
-const endpoint = 'localhost:5000';
+const endpoint = 'http://localhost:5000';
 // io.origins('*:*');
-let socket=io(endpoint, {
-    transports: ["websocket"] // use webSocket only
+let socket=io(endpoint, {cors: {
+    origin: "http://localhost:5000",
+    credentials: true
+  },
+    transports: ["websocket"], // use webSocket only
+    rejectUnauthorized: false
   });
 const Join = () => {
     const [name, setName] = useState('');
