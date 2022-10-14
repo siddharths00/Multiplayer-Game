@@ -121,7 +121,7 @@ io.on('connection', (socket) => {
             console.log(user.name, user.room, data.delay);
             interval=setInterval(function () {
                 a+=1;
-                toBeSent.enqueue([data.x, data.y+2*a]);
+                toBeSent.enqueue([data.x, data.y+10*a]);
                 while (!toBeSent.isEmpty) {
                     // console.log(q.dequeue());
                     let m = toBeSent.dequeue();
@@ -130,7 +130,7 @@ io.on('connection', (socket) => {
                   }
                 
                 // console.log(`send ${data.x} ${data.y+a}`);
-            }, 200);
+            }, 800);
             
         }
         setTimeout(function() {
