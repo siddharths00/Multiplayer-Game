@@ -12,10 +12,10 @@ const { addUser, removeUser, getUser, getUsersInRoom, getRandomInt, users } = re
 
 const PORT = process.env.PORT || 5000;
 
-var options = {
-    key: fs.readFileSync('cert.key','utf-8'),
-    cert: fs.readFileSync('cert.crt','utf-8')
-};
+// var options = {
+//     key: fs.readFileSync('cert.key','utf-8'),
+//     cert: fs.readFileSync('cert.crt','utf-8')
+// };
 
 const app = express();
 const server = http.createServer(app);
@@ -39,7 +39,10 @@ app.use(function(req, res, next) {
 const io = socketio(server, {cors: {origin: "*"}});
 // const io = new Server({ server });
 
-app.use(cors({origin: "s://localhost:3000"}));
+app.use(cors({origin: "ws://localhost:3000"}));
+
+// MAYBE WRITE * instead of the URL
+
 // app.use
 io.on('connection', (socket) => {
     socket.on('join', ({name, room}, callback) => { 

@@ -28,7 +28,13 @@ const Game = () => {
     const [delay, setDelay] = useState(0)
     useEffect(()=>{
 
-        socket = io(endpoint);
+      socket=io(endpoint, {cors: {
+        origin: "http://localhost:5000",
+        credentials: true
+      },
+        transports: ["websocket"], // use webSocket only
+        rejectUnauthorized: false
+      });
         const name = searchParams.get('name');
         const room = searchParams.get('room');
         console.log(name, room);
@@ -199,7 +205,7 @@ const Game = () => {
       },[x, y]);
     return (<>
     <button onClick={()=>{
-      setDelay((e)=>1000-e);
+      setDelay((e)=>2000-e);
     }}>Introduce Delay</button>
     <Move top={x} left={y} top2={x2} left2={y2} onlyOne={onlyOne} points={points} room={room} socket={socket} myPoints={myPoints} hisPoints={hisPoints} msg={msg}/>
                   
