@@ -7,8 +7,9 @@
     "\\client\\src\\components",
     "\\client\\src\\components\\game",
     "\\client\\src\\components\\join",
-    "\\client\\src\\components\\move"
+    "\\client\\src\\components\\move",
+    "\\server"
   ],
-  "SelectedNode": "\\client\\src\\components\\game\\Game.js",
+  "SelectedNode": "\\client\\src\\components\\move\\Move.js",
   "PreviewInSolutionExplorer": false
 }

@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Multiplayer game</h1>
 
     
 
@@ -40,47 +40,48 @@
     
 
 
-
+<h1>Real time network multiplayer game using JavaScript and React</h1>
 
     <section>
-        <article><h1>Getting Started with Create React App</h1>
-<p>This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>.</p>
-<h2>Available Scripts</h2>
-<p>In the project directory, you can run:</p>
-<h3><code>npm start</code></h3>
+        <article>
+<h2>Client</h2>
+<p>Client refers to a player. Client has three main components which is Game, Join and Move. Game component is used
+for starting a game i.e by on the basis of room. Join component is used for joining the particular room and start the
+game between two players. Move component is responsible to display the position and their movements of the players
+and fruits on the canvas. This has the capability to handle multiple games at same point of time and each game is a two
+player game. Player need to enter his name and room in order to join the game. Only two players with different name
+and same room is allowed to play the game.</p>
+<h3>Client Working url</h3>
 <p>Runs the app in the development mode.<br>
 Open <a href="http://localhost:3000">http://localhost:3000</a> to view it in your browser.</p>
-<p>The page will reload when you make changes.<br>
-You may also see any lint errors in the console.</p>
-<h3><code>npm test</code></h3>
-<p>Launches the test runner in the interactive watch mode.<br>
-See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests">running tests</a> for more information.</p>
-<h3><code>npm run build</code></h3>
-<p>Builds the app for production to the <code>build</code> folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.</p>
-<p>The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!</p>
-<p>See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment">deployment</a> for more information.</p>
-<h3><code>npm run eject</code></h3>
-<p><strong>Note: this is a one-way operation. Once you <code>eject</code>, you can't go back!</strong></p>
-<p>If you aren't satisfied with the build tool and configuration choices, you can <code>eject</code> at any time. This command will remove the single build dependency from your project.</p>
-<p>Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except <code>eject</code> will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.</p>
-<p>You don't have to ever use <code>eject</code>. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.</p>
-<h2>Learn More</h2>
-<p>You can learn more in the <a href="https://facebook.github.io/create-react-app/docs/getting-started">Create React App documentation</a>.</p>
-<p>To learn React, check out the <a href="https://reactjs.org/">React documentation</a>.</p>
-<h3>Code Splitting</h3>
-<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/code-splitting">https://facebook.github.io/create-react-app/docs/code-splitting</a></p>
-<h3>Analyzing the Bundle Size</h3>
-<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size">https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size</a></p>
-<h3>Making a Progressive Web App</h3>
-<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app">https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app</a></p>
-<h3>Advanced Configuration</h3>
-<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/advanced-configuration">https://facebook.github.io/create-react-app/docs/advanced-configuration</a></p>
-<h3>Deployment</h3>
-<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/deployment">https://facebook.github.io/create-react-app/docs/deployment</a></p>
-<h3><code>npm run build</code> fails to minify</h3>
-<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify">https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify</a></p></article>
+<h2>Server</h2>
+<p>The server consists of a file index.js in which HTTP server is created. When a join request is sent by client with valid
+url the server accepts the request. Users.js is invoked to get the required information for a client request. If number of
+users in the room is 2 then the game will be established by creating 9 random fruits on the canvas. when a client is
+moved from his position the coordinates of the client was fetched and updated to remaining clients. Similarly when
+anyone of the client ate a fruit, the server will update to all the connected clients which in turn reflects in canvas. The
+server also handles socket connection and disconnection and also acts on valid requests made by client</p>
+<h3>Server Working url</h3>
+<p>Runs the app in the development mode.</p>
+<p>Open <a href="http://localhost:5000">http://localhost:5000</a> to view it in your browser.</p>
+<p>The server will responds to client requests.</p>
+<h2>TOOLS AND TECHNOLOGIES USED</h2>
+<p>The team chose to develop the application in JavaScript since it has an ability to support various web browsers and
+produces equivalent results over all of them. It also provides an edge over other languages to make rich user interface.</p>
+<p>Visual Studio: Visual Studio is an Integrated Development Environment developed by microsoft.
+The application was developed in this IDE. This IDE comes with very powerful functionalities out of the box. It’s
+extensions and add ons make it even easier to develop applications in Visual Studio.</p>
+<p>• Node.js: Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on a
+JavaScript Engine and executes JavaScript code outside a web browser. It was designed to build scalable network
+applications. It can generate dynamic page content and also handles file operations on the server. It can modify
+data in your database.</p>
+<p>• React: React is a free and open-source front-end JavaScript library for building user interfaces based on UI
+components. In this large chunks of HTML codes can be divided into components and we can utilize these
+components and integrate them wherever needed. The component-based approach, automatic rendering, and
+use of just plain JavaScript makes it easier to learn and develop web based applications.</p>
+<p>• JSDoc: It is a very powerful document generator used by developers of JavaScript. It works automatically by
+reading comments in our local files to make inferences. In the end an HTML file is generated with all the
+required documentation.</p></article>
     </section>
 
 
@@ -91,13 +92,13 @@ Your app is ready to be deployed!</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#getRandomInt">getRandomInt</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUsersInRoom">getUsersInRoom</a></li><li><a href="global.html#Move">Move</a></li><li><a href="global.html#removeUser">removeUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Methods</h3><ul><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#alreadyInRoom">alreadyInRoom</a></li><li><a href="global.html#getRandomInt">getRandomInt</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUsersInRoom">getUsersInRoom</a></li><li><a href="global.html#Move">Move</a></li><li><a href="global.html#removeUser">removeUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Oct 09 2022 23:03:47 GMT+0530 (India Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sat Oct 15 2022 19:57:59 GMT+0530 (India Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

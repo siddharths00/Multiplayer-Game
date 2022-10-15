@@ -3,9 +3,15 @@ import { useEffect, useState } from "react";
 import io from 'socket.io-client';
 
 /**
- * This component is responsible to display the position and their movements
- * of the players and friuts on the screen
- * @param {number} top -top refers to x coordinate of player 1
+ * <hr/>
+ * Move Component is the main screen that the player see and interact.
+ * It contains the player screen with which client interacts and also tracks the movements
+ * of the other player.
+ * This Component takes in the parameters which specifies the player details, the fruits details,
+ * the score updation, message in case the user leaves the game along with that the 
+ * component is responsible to display the position and their movements
+ * of the players and friuts on the screen.
+ * @param {number} top - top refers to x coordinate of player 1
  * @param {number} left - left refers to y coordinate of player 1
  * @param {number} top2 -top2 refers to x coordinate of player 1
  * @param {number} left2 - left2 refers to y coordinate of player 1

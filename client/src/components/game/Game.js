@@ -18,7 +18,7 @@ const Game = () => {
     const [myPoints, setmyPoints] = useState(0);
     const [hisPoints, sethisPoints] = useState(0);
     const [msg, setMsg] = useState('Let another player join');
-    const endpoint = 'http://localhost:5000';
+    const endpoint = 'http://10.194.39.136:5000/';
     const [searchParams] = useSearchParams();
     const pixelDistance=20;
     const [x, setX] = useState(0)
@@ -29,7 +29,7 @@ const Game = () => {
     useEffect(()=>{
 
       socket=io(endpoint, {cors: {
-        origin: "http://localhost:5000",
+          origin: "'http://10.194.39.136:5000/'",
         credentials: true
       },
         transports: ["websocket"], // use webSocket only
@@ -173,7 +173,6 @@ const Game = () => {
 
       useEffect(()=>{
         console.log("sending ", x, y);
-        // if(points===[])
           socket.emit('sendCoordinates', { x, y, myPoints, delay:delay}, () => {
             console.log("sent it");
           });

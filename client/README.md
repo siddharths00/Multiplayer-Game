@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+#  Real time network multiplayer game using JavaScript and React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Client
 
-In the project directory, you can run:
+Client refers to a player. Client has three main components which is Game, Join and Move. Game component is used
+for starting a game i.e by on the basis of room. Join component is used for joining the particular room and start the
+game between two players. Move component is responsible to display the position and their movements of the players
+and fruits on the canvas. This has the capability to handle multiple games at same point of time and each game is a two
+player game. Player need to enter his name and room in order to join the game. Only two players with different name
+and same room is allowed to play the game.
 
-### `npm start`
+### Client Working url
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Server
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The server consists of a file index.js in which HTTP server is created. When a join request is sent by client with valid
+url the server accepts the request. Users.js is invoked to get the required information for a client request. If number of
+users in the room is 2 then the game will be established by creating 9 random fruits on the canvas. when a client is
+moved from his position the coordinates of the client was fetched and updated to remaining clients. Similarly when
+anyone of the client ate a fruit, the server will update to all the connected clients which in turn reflects in canvas. The
+server also handles socket connection and disconnection and also acts on valid requests made by client
 
-### `npm run build`
+### Server Working url
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Runs the app in the development mode.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Open [http://localhost:5000](http://localhost:5000) to view it in your browser.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The server will responds to client requests. 
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+##	TOOLS AND TECHNOLOGIES USED
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The team chose to develop the application in JavaScript since it has an ability to support various web browsers and
+produces equivalent results over all of them. It also provides an edge over other languages to make rich user interface.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Visual Studio: Visual Studio is an Integrated Development Environment developed by microsoft.
+The application was developed in this IDE. This IDE comes with very powerful functionalities out of the box. It’s
+extensions and add ons make it even easier to develop applications in Visual Studio.
 
-## Learn More
+• Node.js: Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on a
+JavaScript Engine and executes JavaScript code outside a web browser. It was designed to build scalable network
+applications. It can generate dynamic page content and also handles file operations on the server. It can modify
+data in your database.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+• React: React is a free and open-source front-end JavaScript library for building user interfaces based on UI
+components. In this large chunks of HTML codes can be divided into components and we can utilize these
+components and integrate them wherever needed. The component-based approach, automatic rendering, and
+use of just plain JavaScript makes it easier to learn and develop web based applications.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+• JSDoc: It is a very powerful document generator used by developers of JavaScript. It works automatically by
+reading comments in our local files to make inferences. In the end an HTML file is generated with all the
+required documentation.

@@ -150,15 +150,7 @@ io.on('connection', (socket) => {
             callback();
           }, data.delay);
           
-        //   while(run) {
-        //     a+=1
-        //     if(typeof data.x!== "undefined")
-        //     socket.broadcast.to(user.room).emit('coordinates', { x: data.x+1, y:data.y});
-        //     if(typeof data.points!== "undefined")
-        //     socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
-        //     if(typeof data.myPoints!== "undefined")
-        //     socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
-        //   }
+
     });
 
     socket.on('updatedFruits', ({fruits, room}, callback) => {

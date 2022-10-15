@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Methods</h1>
 
     
 
@@ -104,164 +104,7 @@
     
 
     
-    <h4 class="name" id="addUser"><span class="type-signature"></span>addUser<span class="signature">(roomObject)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>roomObject</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Takes user details</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users.js.html">users.js</a>, <a href="users.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>It returns User Object</li>
-</ul>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getRandomInt"><span class="type-signature"></span>getRandomInt<span class="signature">(max)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="addUser"><span class="type-signature"></span>addUser<span class="signature">(id, name, room)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -269,168 +112,12 @@
 
 
 <div class="description">
-    <p>This method generates a random numer</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>max</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Takes number as input</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users.js.html">users.js</a>, <a href="users.js.html#line31">line 31</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>a random number</li>
-</ul>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getUser"><span class="type-signature"></span>getUser<span class="signature">(id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>This method returns the player with the requested id</p>
+    <hr/>
+Add User method add the user with the specified details to the particular room.
+The parameters to the function specifies the the name of the user, id assigned to user
+and the room to which the user wants to enter.
+After adding particular user to the specified room the method also returns the the details 
+of the user added to the room.
 </div>
 
 
@@ -482,7 +169,53 @@
 
             
 
-            <td class="description last"><p>takes the id as input</p></td>
+            <td class="description last"><p>Unique Id assigned to user</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the user</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>room</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The room id to which the user enter</p></td>
         </tr>
 
     
@@ -523,7 +256,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users.js.html">users.js</a>, <a href="users.js.html#line52">line 52</a>
+        <a href="users.js.html">users.js</a>, <a href="users.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -553,7 +286,497 @@
         
 <div class="param-desc">
     <ul>
-<li>returns the user object</li>
+<li>It returns User details { id, name, room}</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="alreadyInRoom"><span class="type-signature"></span>alreadyInRoom<span class="signature">(name, room)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <hr/>
+The alreadyInRoom method is used to check if the user with given name is in the 
+particluar room is already in the there.
+This is to ensure that no room have 2 players wtih same name.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>room</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="users.js.html">users.js</a>, <a href="users.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getRandomInt"><span class="type-signature"></span>getRandomInt<span class="signature">(max)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <hr/>
+The getRandomInt method generates a random number with max value given as parameter
+This random number is then used for placing the fruits randomly over the board.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>takes maximum value which is the upper limit of random number to be generated.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="users.js.html">users.js</a>, <a href="users.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>returns a random number from 0 to max-1</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getUser"><span class="type-signature"></span>getUser<span class="signature">(id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <hr/>
+The getUser method is used to get the details of the user. The id of the user of which details are required
+is given as input parameter and it looks at the list of users and return the user details of the user corresponding 
+to id.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>takes the id as of the user as a parameter</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="users.js.html">users.js</a>, <a href="users.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>returns the user details as User Object</li>
 </ul>
 </div>
 
@@ -591,7 +814,10 @@
 
 
 <div class="description">
-    <p>This method returnsall users in the room</p>
+    <hr/>
+The method getUsersInRoom is used to return all the users in a particular room.
+The method takes the parameter room id. Looks over all the users and returns the users in the
+specified room.
 </div>
 
 
@@ -643,7 +869,7 @@
 
             
 
-            <td class="description last"><p>takes the room as input</p></td>
+            <td class="description last"><p>takes the room id as input</p></td>
         </tr>
 
     
@@ -684,7 +910,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users.js.html">users.js</a>, <a href="users.js.html#line58">line 58</a>
+        <a href="users.js.html">users.js</a>, <a href="users.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -714,7 +940,7 @@
         
 <div class="param-desc">
     <ul>
-<li>returns the array of the player in the room</li>
+<li>returns the array of the all the players in particular room</li>
 </ul>
 </div>
 
@@ -752,8 +978,14 @@
 
 
 <div class="description">
-    <p>This component is responsible to display the position and their movements
-of the players and friuts on the screen</p>
+    <hr/>
+Move Component is the main screen that the player see and interact.
+It contains the player screen with which client interacts and also tracks the movements
+of the other player.
+This Component takes in the parameters which specifies the player details, the fruits details,
+the score updation, message in case the user leaves the game along with that the 
+component is responsible to display the position and their movements
+of the players and friuts on the screen.
 </div>
 
 
@@ -1053,7 +1285,7 @@ of the players and friuts on the screen</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_move_Move.js.html">components/move/Move.js</a>, <a href="components_move_Move.js.html#line22">line 22</a>
+        <a href="components_move_Move.js.html">components/move/Move.js</a>, <a href="components_move_Move.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -1097,7 +1329,9 @@ of the players and friuts on the screen</p>
 
 
 <div class="description">
-    <p>This method removes the player with particular id</p>
+    <hr/>
+This method is used to remove the player with specified id. The client with the specified is 
+removed from the list of users and the updated list of available users is the returned by the function.
 </div>
 
 
@@ -1190,7 +1424,7 @@ of the players and friuts on the screen</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users.js.html">users.js</a>, <a href="users.js.html#line41">line 41</a>
+        <a href="users.js.html">users.js</a>, <a href="users.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
@@ -1260,13 +1494,13 @@ of the players and friuts on the screen</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#getRandomInt">getRandomInt</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUsersInRoom">getUsersInRoom</a></li><li><a href="global.html#Move">Move</a></li><li><a href="global.html#removeUser">removeUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#alreadyInRoom">alreadyInRoom</a></li><li><a href="global.html#getRandomInt">getRandomInt</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUsersInRoom">getUsersInRoom</a></li><li><a href="global.html#Move">Move</a></li><li><a href="global.html#removeUser">removeUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Oct 09 2022 23:03:47 GMT+0530 (India Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sat Oct 15 2022 19:53:13 GMT+0530 (India Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

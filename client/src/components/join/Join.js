@@ -5,10 +5,10 @@ import { useState } from 'react';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import './join.css';
-const endpoint = 'http://localhost:5000';
+const endpoint = 'http://10.194.39.136:5000/';
 // io.origins('*:*');
 let socket=io(endpoint, {cors: {
-    origin: "http://localhost:5000",
+    origin: "http://10.194.39.136:5000/",
     credentials: true
   },
     transports: ["websocket"], // use webSocket only
@@ -32,11 +32,7 @@ const Join = () => {
                         setRoom(event.target.value);
                         setMsg('');
                         }}/></div>
-                    <Link onClick={(event) => {
-
-                        // console.log("testing");
-                        
-                        // (!name || !room)?event.preventDefault():null                
+                    <Link onClick={(event) => {             
                         event.preventDefault();
                         console.log("just checking");
                         // import("../../users").then(userMod => {
