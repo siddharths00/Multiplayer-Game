@@ -5,10 +5,9 @@ import { useState } from 'react';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import './join.css';
-const endpoint = 'http://10.194.39.136:5000/';
-// io.origins('*:*');
+const endpoint = 'http://localhost:5000/';
 let socket=io(endpoint, {cors: {
-    origin: "http://10.194.39.136:5000/",
+    origin: "http://localhost:5000/",
     credentials: true
   },
     transports: ["websocket"], // use webSocket only
@@ -54,7 +53,7 @@ const Join = () => {
                         });
                     
                     }} to={`/game?name=${name}&room=${room}`}>
-                        <button className="button mt-20" type="submit">Sign In</button>
+                        <button className="button mt-20" type="submit">Play Game</button>
                     </Link>
                 </div>
             </div>

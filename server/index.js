@@ -112,46 +112,50 @@ io.on('connection', (socket) => {
         callback();
     });
     socket.on('sendCoordinates', (data, callback) => {
-        const user = getUser(socket.id);
-        // console.log("\n\nsending\n\n");
-        let run=true;
-        let a=0;
-        let interval;
-        if(data.delay!==0){
-            console.log(user.name, user.room, data.delay);
-            interval=setInterval(function () {
-                a+=1;
-                toBeSent.enqueue([data.x, data.y+10*a]);
-                while (!toBeSent.isEmpty) {
-                    // console.log(q.dequeue());
-                    let m = toBeSent.dequeue();
-                    console.log("SENDING STUFf, ",m);
-                    socket.broadcast.to(user.room).emit('coordinates', { x: m[0], y:m[1]});
-                  }
-                
-                // console.log(`send ${data.x} ${data.y+a}`);
-            }, 800);
-            
-        }
-        setTimeout(function() {
-            run = false;
-            if(data.delay!==0){
-                clearInterval(interval);
-            }
-            if(typeof data.x!== "undefined") {
-                // moveUser(socket.id, )
-                
-                socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
-            }
-            if(typeof data.points!== "undefined")
-            socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
-            if(typeof data.myPoints!== "undefined")
-            socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
-            callback();
-          }, data.delay);
+      const user = getUser(socket.id);
+      // console.log("\n\nsending\n\n");
+      let run=true;
+      let a=0;
+      let interval;
+      if(data.delay!==0 && data.x!=='undefined'){
+          console.log(user.name, user.room, data.delay);
+          interval=setInterval(function () {
+              a+=1;
+              if(data.last==='up')
+              toBeSent.enqueue([data.x-a, data.y]);
+              if(data.last==='right')
+              toBeSent.enqueue([data.x, data.y+a]);
+              if(data.last==='down')
+              toBeSent.enqueue([data.x+a, data.y]);
+              if(data.last==='left')
+              toBeSent.enqueue([data.x-a, data.y]);
+              while (!toBeSent.isEmpty) {
+                  // console.log(q.dequeue());
+                  let m = toBeSent.dequeue();
+                  socket.broadcast.to(user.room).emit('coordinates', { x: m[0], y:m[1]});
+                }
+              
+              // console.log(`send ${data.x} ${data.y+a}`);
+          }, 2500);
           
-
-    });
+      }
+      setTimeout(function() {
+          run = false;
+          if(data.delay!==0){
+              clearInterval(interval);
+          }
+          if(typeof data.x!== "undefined") {
+              // moveUser(socket.id, )
+              
+              socket.broadcast.to(user.room).emit('coordinates', { x: data.x, y:data.y});
+          }
+          if(typeof data.points!== "undefined")
+          socket.broadcast.to(user.room).emit('coordinates', { points:data.points});
+          if(typeof data.myPoints!== "undefined")
+          socket.broadcast.to(user.room).emit('coordinates', { score:data.myPoints});
+          callback();
+        }, data.delay);
+  });
 
     socket.on('updatedFruits', ({fruits, room}, callback) => {
             console.log("someone ate a fruit")

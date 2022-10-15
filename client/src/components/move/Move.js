@@ -27,7 +27,7 @@ import io from 'socket.io-client';
 const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoints, msg }) => {
     let ht=<></>;
     const [fruits, setFruits] = useState([]);
-    const endpoint = 'localhost:5000';
+    const endpoint = 'http://localhost:5000';
     let incrementPoints = (setState) => {
         setState((e)=>e+1);
     }
@@ -40,7 +40,6 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
         try {
              socket.on('fruits', (data) => {
                 setFruits(data.fruits)
-                console.log("HSLOOOOOOOOOOOOOOOOOOOOOOO");
               })
         }
         catch(e) {
@@ -78,7 +77,7 @@ const Move = ({ top, left, top2, left2, onlyOne, points, room, myPoints, hisPoin
                 className="move-div1"
                 ></div>
                 <div>
-                    {fruits.map((point, i) => func(point, i))}
+                    {fruits?fruits.map((point, i) => func(point, i)):null}
                 </div>
                 <div
                 style={{ top: `${top2}px`, left: `${left2}px` }}

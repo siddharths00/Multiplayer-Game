@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 import { useSearchParams } from 'react-router-dom';
-import './chat.css';
+import './game.css';
 import getCoordinates from '../../controllers/Socket'
 import Move from '../move/Move';
 const { addUser, removeUser, getUser, getUsersInRoom, users } = require('../../users');
@@ -18,7 +18,7 @@ const Game = () => {
     const [myPoints, setmyPoints] = useState(0);
     const [hisPoints, sethisPoints] = useState(0);
     const [msg, setMsg] = useState('Let another player join');
-    const endpoint = 'http://10.194.39.136:5000/';
+    const endpoint = 'http://localhost:5000/';
     const [searchParams] = useSearchParams();
     const pixelDistance=20;
     const [x, setX] = useState(0)
@@ -26,10 +26,11 @@ const Game = () => {
     const [x2, setX2] = useState(404)
     const [y2, setY2] = useState(880)
     const [delay, setDelay] = useState(0)
+    const [last, setLast] = useState('')
     useEffect(()=>{
 
       socket=io(endpoint, {cors: {
-          origin: "'http://10.194.39.136:5000/'",
+          origin: 'http://localhost/',
         credentials: true
       },
         transports: ["websocket"], // use webSocket only
@@ -105,8 +106,9 @@ const Game = () => {
         setX2(data.x);
         if(data.y)
         setY2(data.y);
-        if(data.points)
-        setPoints(data.points);
+        if(data.points) {
+          setPoints(data.points);
+      }
         if(data.score)
         sethisPoints(data.score);
         console.log("after ", x2, y2);
@@ -121,25 +123,28 @@ const Game = () => {
             let a=x;
             let b=y;
             if (e.keyCode == up){
+              setLast('up');
               let temp = (x - pixelDistance >= 0 ? x - pixelDistance : 0);
               if(Math.abs(temp-x2)>15 || Math.abs(y-y2)>15) 
                   setX((top) => (top - pixelDistance >= 0 ? top - pixelDistance : 0));
             }
             else if (e.keyCode == down){
+              setLast('down');
               let temp = (x + pixelDistance <= 405 ? x + pixelDistance : 405);
               if(Math.abs(temp-x2)>15|| Math.abs(y-y2)>15) 
                   setX((top) => top + pixelDistance <= 405 ? top + pixelDistance : 405);
             }
             else if (e.keyCode == left){
+              setLast('left');
               let temp = ( y - pixelDistance >= 0 ? y - pixelDistance : 0);
               if(Math.abs(temp-y2)>15|| Math.abs(x-x2)>15) 
                   setY((left) => left - pixelDistance >= 0 ? left - pixelDistance : 0);
             }
             else if (e.keyCode == right){
+              setLast('right');
               let temp = (y + pixelDistance <= 880 ? y + pixelDistance : 880);
               if(Math.abs(temp-y2)>15|| Math.abs(x-x2)>15) 
                   setY((left) => left + pixelDistance <= 880 ? left + pixelDistance : 880);
-              console.log("yoyo ", x, y);
             }
             else return;
             
@@ -173,7 +178,8 @@ const Game = () => {
 
       useEffect(()=>{
         console.log("sending ", x, y);
-          socket.emit('sendCoordinates', { x, y, myPoints, delay:delay}, () => {
+        // if(points===[])
+          socket.emit('sendCoordinates', { x, y, myPoints, delay:delay, last:last}, () => {
             console.log("sent it");
           });
           try{
@@ -187,13 +193,11 @@ const Game = () => {
                 temp[i][2]=false;
                 console.log(points);
                 setPoints(temp);
-                socket.emit('sendCoordinates', { points:temp, delay:delay}, () => {
+                socket.emit('sendCoordinates', { points:temp, delay:delay, last:last}, () => {
                   console.log("sent it");
                 });
                 console.log(points);
                 setmyPoints((e)=>e+1);
-                console.log("YOLO");
-                console.log("YOLO2");
             }
         }
       }
@@ -203,11 +207,16 @@ const Game = () => {
 
       },[x, y]);
     return (<>
-    <button onClick={()=>{
+    {!onlyOne?<><button className="button mt-20 delayButton" type="submit" onClick={()=>{
       setDelay((e)=>3000-e);
     }}>Introduce Delay</button>
+    {delay?<button className="button mt-20 delayButton" type="submit" onClick={()=>{
+      setDelay((e)=>3000-e);
+    }}>Click to remove delay of 3 Sec</button>:null}
     <Move top={x} left={y} top2={x2} left2={y2} onlyOne={onlyOne} points={points} room={room} socket={socket} myPoints={myPoints} hisPoints={hisPoints} msg={msg}/>
-                  
+    </>
+    :<Move top={x} left={y} top2={x2} left2={y2} onlyOne={onlyOne} points={points} room={room} socket={socket} myPoints={myPoints} hisPoints={hisPoints} msg={msg}/>
+  }
         </>
     );
 }

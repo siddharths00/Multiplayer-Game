@@ -42,6 +42,18 @@
     color: blanchedalmond;
   }
 
+  .delayButton {
+    margin: 0;
+  position: absolute;
+  top: 4%;
+  width:auto;
+  left:45%;
+  cursor:pointer;
+  color:black;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  }
+
   body {
     overflow: hidden;
   }
